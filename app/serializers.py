@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 
+from .models import LANGUAGE_CHOICES, STYLE_CHOICES, Snippet
 
 # class SnippetSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
