@@ -15,9 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from drf_spectacular.views import (
+    SpectacularJSONAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path("", include("app.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("admin/", admin.site.urls),
-]
+] + format_suffix_patterns(
+    [
+        # schema urls
+        path("schema/", SpectacularJSONAPIView.as_view(), name="schema"),
+        path("schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+        path("schema/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
+    ]
+)
